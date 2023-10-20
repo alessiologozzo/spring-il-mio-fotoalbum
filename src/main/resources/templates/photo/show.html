@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<div th:replace="fragments/head :: head(${photo.getName()})"></div>
+<body>
+    <div th:replace="fragments/navbar :: navbar()"></div>
+
+    <h1 class="text-center al-text-primary py-4" th:text="${photo.getName()}"></h1>
+
+    <div class="container py-2">
+
+        <div class="row gy-3">
+            <div class="col-12 col-md-6">
+                <img th:src="${photo.getUrl()}" th:alt="${photo.getName()}" class="al-img al-frame">
+            </div>
+
+            <div class="col-12 col-md-6 d-flex flex-column justify-content-center gap-3 ps-md-5">
+                <div>
+                    <div><span class="text-decoration-underline">Nome</span>:</div> 
+                    <h5 th:text="${photo.getName()}"></h5>
+                </div>
+                
+                <div>
+                    <div th:if="${photo.getDescription()} != null"><span class="text-decoration-underline">Descrizione</span>:</div>
+                    <div th:unless="${photo.getDescription()} != null"><span class="text-decoration-underline">Descrizione</span>:</div>
+                    <h5 th:if="${photo.getDescription()} != null" th:text="${photo.getDescription()}"></h5>
+                    <h5 th:unless="${photo.getDescription()} != null" class="al-text-danger">Questa foto non ha una descrizione.</h5>
+                </div>
+
+                <div>
+                    <div><span class="text-decoration-underline">URL</span>:</div> 
+                    <h5 th:text="${photo.getUrl()}"></h5>
+                </div>
+
+                <div>
+                    <div><span class="text-decoration-underline">Categorie</span>:</div> 
+                    <h5 th:text="${photo.categoriesToString()}"></h5>
+                </div>
+            </div>
+        </div>
+
+        <div th:if="${canChange}" class="col-12 d-flex align-items-end gap-3">
+            <button class="btn btn-danger mt-4" data-bs-toggle="modal" data-bs-target="#deleteModal" th:attr="onclick=|setDeleteAction('${photo.getName()}', '/photos/delete/${photo.getId()}')|">Elimina</button>
+            <a th:href="@{/photos/edit/{id}(id=${photo.getId()})}" class="btn btn-success">Modifica</a>
+        </div>
+        <div th:unless="${canChange}" class="col-12 col-md-6 p-4 al-text-danger">
+            <span>Nonostante tu sia l'admin, non puoi cancellare o modificare foto che non sono tue. Puoi però nasconderle in Gestisci Visibilità.</span>
+        </div>
+
+    </div>
+
+    <form method="post" id="delete-form"></form>
+    <div th:replace="fragments/modal.html :: modal('Sei sicuro di voler eliminare questa foto? Questa azione è irreversibile.', 'Annulla', 'Elimina')"></div>
+
+    <div th:replace="fragments/bootstrap_import :: js()"></div>
+</body>
+</html>

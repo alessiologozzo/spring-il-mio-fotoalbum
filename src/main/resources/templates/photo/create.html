@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: head('Nuova foto')}"></head>
+
+<body th:attr="onload=|setSelectedIngredients('${photoDTO.getCategoriesStr}'); filterSelectedIngredients()|"
+onclick="hideTips()">
+    <div th:replace="fragments/navbar :: navbar()"></div>
+
+    <div class="container d-flex justify-content-center py-3">
+        <form method="post" th:object="${photoDTO}" id="categories-form" class="col-11 col-sm-9 col-md-7 col-lg-6 col-xl-5 col-xxl-4 d-flex flex-column gap-3 al-bg-light p-4 mt-5 al-rounded-border al-shadow">
+            <h2 class="text-center pb-2">Modifica Foto</h2>
+
+            <div class="d-flex flex-column gap-3">
+                <div class="d-flex flex-column gap-1">
+                    <label for="name">
+                        Nome
+                        <span class="al-asterisk">*</span>
+                    </label>
+                    <div th:if="${#fields.hasErrors('name')}">
+                        <input th:field="*{name}" type="text" name="name" id="name" placeholder="Nome foto..." required minlength="3" maxlength="20" class="form-control is-invalid">
+                        <div class="invalid-feedback">
+                            Il nome deve essere compreso tra 3 e 20 caratteri.
+                        </div>
+                    </div>
+                    <input th:unless="${#fields.hasErrors('name')}" th:field="*{name}" type="text" name="name" id="name" placeholder="Nome foto..." required minlength="3" maxlength="20">
+                </div>
+
+                <div class="d-flex flex-column gap-1">
+                    <label for="url">
+                        URL
+                        <span class="al-asterisk">*</span>
+                    </label>
+                    <div th:if="${#fields.hasErrors('url')}">
+                        <input th:field="*{url}" type="text" name="url" id="url" placeholder="URL foto..." required maxlength="255" class="form-control is-invalid">
+                        <div class="invalid-feedback">
+                            L'URL deve essere una stringa valida inferiore ai 255 caratteri.
+                        </div>
+                    </div>
+                    <input th:unless="${#fields.hasErrors('url')}" th:field="*{url}" type="text" name="url" id="url" placeholder="URL foto..." required maxlength="255">
+                </div>
+
+                <div class="d-flex flex-column gap-1">
+                    <label for="description">Descrizione</label>
+                    <div th:if="${#fields.hasErrors('description')}">
+                        <textarea th:field="*{description}" type="text" name="description" id="description" placeholder="Descrizione foto..." minlength="3" maxlength="255" class="form-control is-invalid" cols="30" rows="10"></textarea>
+                        <div class="invalid-feedback">
+                            Se presente, la descrizione deve essere compresa tra i 3 e i 255 caratteri.
+                        </div>
+                    </div>
+                    <textarea th:unless="${#fields.hasErrors('description')}" th:field="*{description}" type="text" name="description" id="description" placeholder="Descrizione foto..." minlength="3" maxlength="255" rows="5"></textarea>
+                </div>
+
+                <div id="selected-ingredients">
+                    <label for="search">
+                        Categorie 
+                        <span class="al-asterisk">*</span>
+                    </label>
+                    <div class="d-flex flex-wrap gap-2 pt-2">
+                        <span th:attr="onclick=|removeIngredient('${ingredient.getName()}')|"
+                            th:each="ingredient: ${categories}" th:text="${ingredient.getName()}"
+                            class="badge text-bg-primary removable-ingredient"></span>
+
+                        <small class="w-100 text-center text-decoration-underline al-text-danger"
+                            id="no-selected-ingredients">Nessuna categoria selezionata</small>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="search-box d-flex flex-column">
+                        <input th:if="${#fields.hasGlobalErrors()}" onclick="shouldShowTips(event)" onkeyup="shouldShowTips(event)" type="text"
+                            id="search" class="input-search form-control is-invalid" placeholder="Aggiungi una categoria...">
+                        <input th:unless="${#fields.hasGlobalErrors()}" onclick="shouldShowTips(event)" onkeyup="shouldShowTips(event)" type="text"
+                            id="search" class="input-search" placeholder="Cerca una categoria...">
+                        <div id="result-box" class="d-none">
+                            <hr class="my-1 text-dark">
+                            <ul>
+                                <li th:attr="onclick=|addIngredient('${ingredient.getName()}')|"
+                                    th:each="ingredient: ${categories}" th:text="${ingredient.getName()}"></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div th:if="${#fields.hasGlobalErrors()}">
+                    <span th:each="err : ${#fields.globalErrors()}" th:text="${err}" class="al-text-danger">...</span>
+                </div>
+                
+            </div>
+
+            <div class="d-flex justify-content-end pt-4">
+                <div class="btn btn-primary" onclick="submitCategories()">Invia</div>
+            </div>
+
+            <input type="text" class="d-none" id="categories-input" name="categoriesStr" th:field="*{categoriesStr}">
+        </form>
+    </div>
+
+    <div th:replace="fragments/bootstrap_import :: js()"></div>
+</body>
+
+</html>

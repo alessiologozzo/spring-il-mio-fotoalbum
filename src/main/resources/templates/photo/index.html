@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<div th:replace="fragments/head :: head('Le tue foto')"></div>
+<body>
+    <div th:replace="fragments/navbar :: navbar()"></div>
+
+    <h1 class="text-center al-text-primary py-4">Le tue foto</h1>
+
+    <div class="container">
+        <div class="d-flex justify-content-end">
+            <form method="get" class="d-flex flex-column al-bg-light gap-3 p-5 al-rounded-border al-shadow position-relative">
+                <h2>Filtri</h2>
+                
+                <input type="text" name="name" th:value="${name}" placeholder="Nome della foto...">
+    
+                <div class="d-flex justify-content-end pt-3">
+                    <input type="submit" class="btn btn-primary" value="Invia">
+                </div>
+                
+                <a href="/photos" class="filter-refresh">
+                    <i class="fa-solid fa-arrows-rotate text-success"></i>
+                </a>
+            </form>
+        </div>
+
+        <a href="/photos/create" class="btn btn-success mb-2">Nuova Foto</a>
+
+        <div th:if="!${empty}" class="row justify-content-center">
+            <div th:each="photo: ${photos}" th:if="${photo.getVisible}" class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-4 p-3">
+                <div th:replace="fragments/photo_card :: photoCard(${photo})"></div>
+            </div>
+        </div>
+        <h4 th:unless="!${empty}" class="text-center pt-4">Nessuna foto</h4>
+    </div>
+
+    <form method="post" id="delete-form"></form>
+    <div th:replace="fragments/modal.html :: modal('Sei sicuro di voler eliminare questa foto? Questa azione è irreversibile.', 'Annulla', 'Elimina')"></div>
+
+    <div th:replace="fragments/bootstrap_import :: js()"></div>
+</body>
+</html>

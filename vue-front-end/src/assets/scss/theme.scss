@@ -1,0 +1,13 @@
+$primary: #bb86fc;
+$danger: #cf6679;
+$success: #03dac5;
+$dark: #121212;
+$light: #1f1f1f;
+
+@import "bootstrap/dist/css/bootstrap.css";
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+:root {
+    --al-light-hover: #2e2e2e;
+    --al-transition-short: 300ms;
+}

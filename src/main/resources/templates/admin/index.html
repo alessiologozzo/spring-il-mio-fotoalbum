@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<div th:replace="fragments/head :: head('Gestisci visibilità')"></div>
+<body th:attr="onload=|setPhotos(${photosJSON})|">
+    <div th:replace="fragments/navbar :: navbar()"></div>
+
+    <h1 class="text-center al-text-primary py-4">Gestisci visibilità</h1>
+
+    <form method="post" id="visibles-form" class="container pt-3">
+        <div class="table-responsive">
+            <table class="table table-dark table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th class="text-center">Id</th>
+                        <th class="text-center">Nome</th>
+                        <th class="text-center">Visibile</th>
+                        <th class="text-center">Vai alla foto</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr th:each="photo: ${photos}">
+                        <td th:text="${photo.getId()}" class="align-middle text-center"></td>
+                        <td th:text="${photo.getName()}" class="align-middle text-center"></td>
+                        <td class="al-text-success align-middle text-center">
+                            <div class="d-flex justify-content-center align-items-center gap-3">
+                                <i th:if="${photo.getVisible()}" th:id="'visible-status-' + ${photo.getId()}" class="fa-solid fa-check al-text-success"></i>
+                                <i th:unless="${photo.getVisible()}" th:id="'visible-status-' + ${photo.getId()}" class="fa-solid fa-xmark al-text-danger"></i>
+                                <i th:attr="onclick=|toggleVisibility('visible-status-' + ${photo.getId()}, ${photo.getId()})|" class="fa-solid fa-highlighter al-text-primary fs-4 pen-icon"></i>
+                            </div>
+                        </td>
+                        <td>
+                            <a th:href="@{/photos/{id}(id=${photo.getId()})}">
+                                <div class="table-img-container">
+                                    <img th:src="@{${photo.getUrl()}}" th:alt="${photo.getName()}" class="al-img">
+                                </div>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <div th:object="${stringDTO}" class="d-none">
+            <input type="text" id="visibles-input" name="stringDTO" th:field="*{value}">
+        </div>
+        
+        <div class="d-flex justify-content-end py-3">
+            <div onclick="submitVisibles('visibles-form')" class="btn btn-primary px-4 py-2">Salva</div>
+        </div>
+    </form>
+
+    <div th:replace="fragments/bootstrap_import :: js()"></div>
+</body>
+</html>

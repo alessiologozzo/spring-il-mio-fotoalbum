@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="~{fragments/head :: head('Home')}"></head>
+
+    <body>
+        <div th:replace="fragments/navbar :: navbar()"></div>
+
+        <div class="container mt-5 py-5 px-4 px-md-5 al-bg-light al-rounded-border al-shadow">
+            <h1 class="text-center">Home - Benvenuto!</h1>
+
+            <h5 class="pt-3 pb-1">Utenti registrati di default</h5>
+            <div class="d-flex flex-column gap-1 pt-2">
+                <div>
+                    <h6>Utente 1</h6>
+                    <div class="d-flex align-items-center gap-2">
+                        <small class="text-decoration-underline">Username:</small>
+                        <span>user</span>
+
+                        <small class="text-decoration-underline">Password:</small>
+                        <span>user</span>
+                    </div>
+                </div>
+
+                <div>
+                    <h6>Utente 2</h6>
+                    <div class="d-flex align-items-center gap-2">
+                        <small class="text-decoration-underline">Username:</small>
+                        <span>admin</span>
+
+                        <small class="text-decoration-underline">Password:</small>
+                        <span>admin</span>
+                    </div>
+                </div>
+            </div>
+
+            <h5 class="pt-4 pb-1">Informazioni utili</h5>
+
+            <div class="d-flex flex-column gap-2 pt-2">
+                <span>- Se non sei loggato hai accesso solamente a questa pagina.</span>
+                <span>- Se sei loggato come user hai accesso alle Foto: puoi aggiungere, modificare ed eliminare le tue foto.</span>
+                <span>- Se sei loggato come admin hai accesso alle Foto e alla Gestione Visibilità: puoi cambiare la visibilità di tutte le foto del database.</span>
+                <span>- Puoi registrare un nuovo utente in qualsiasi momento. Avrai autorità USER. L'username non deve essere già in uso.</span>
+            </div>
+
+        </div>
+
+        <div th:replace="fragments/bootstrap_import :: js()"></div>
+    </body>
+</html>

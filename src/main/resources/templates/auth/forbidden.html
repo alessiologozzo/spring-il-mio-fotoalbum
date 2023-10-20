@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+    <head th:replace="~{fragments/head :: head('Login')}"></head>
+
+	<body>
+        <div th:replace="fragments/navbar :: navbar()"></div>
+
+        <div class="container text-center py-4">
+            <h1 class="py-5">ATTENZIONE!</h1>
+
+            <h3 class="py-3">Non hai l'autorizzazione per visitare questa pagina.</h3>
+
+            <div class="d-flex justify-content-center align-items-center pt-5">
+                <a href="/" class="btn btn-outline-light mt-2">Torna alla Home</a>
+            </div>
+        </div>
+
+        <div th:replace="fragments/bootstrap_import :: js()"></div>
+	</body>
+</html>

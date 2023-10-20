@@ -1,0 +1,20 @@
+<form th:fragment="photoCard(photo)" th:action="@{/photos/{id}(id=${photo.getId()})}" method="get" class="photo-card al-bg-light">
+    <div class="card-head">
+        <h5 th:text="${photo.getName()}" class="truncate px-3"></h5>
+    </div>
+    <div class="card-body">
+        
+        <div class="actions">
+            <a th:href="@{/photos/edit/{id}(id=${photo.getId()})}" class="edit-icon">
+                <i class="fa-solid fa-pen-to-square"></i>
+            </a>
+
+            <i class="fa-solid fa-trash trash-icon" data-bs-toggle="modal" data-bs-target="#deleteModal" th:attr="onclick=|setDeleteAction('${photo.getName()}', '/photos/delete/${photo.getId()}')|"></i>
+        </div>
+
+        <div class="img-container">
+            <img th:src="${photo.getUrl()}" th:alt="${photo.getName()}" class="al-img">
+        </div>
+    </div>
+    <input type="submit" class="hidden-submit">
+</form>

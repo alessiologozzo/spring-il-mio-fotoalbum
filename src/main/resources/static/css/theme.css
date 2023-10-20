@@ -1,0 +1,55 @@
+:root {
+    --primary: #bb86fc;
+    --danger: #cf6679;
+    --success: #03dac5;
+    --dark: #121212;
+    --light: #1f1f1f;
+    --light_hover: #363636;
+
+    --transition_short: 300ms;
+}
+
+.al-bg-dark {
+    background-color: var(--dark);
+}
+
+.al-bg-light {
+    background-color: var(--light);
+}
+
+.al-bg-primary {
+    background-color: var(--primary);
+}
+
+.al-bg-success {
+    background-color: var(--success);
+}
+
+.al-bg-danger {
+    background-color: var(--success);
+}
+
+.al-text-primary {
+    color: var(--primary);
+}
+
+.al-text-success {
+    color: var(--success);
+}
+
+.al-text-danger {
+    color: var(--danger);
+}
+
+.al-rounded-border {
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.al-shadow {
+    box-shadow: 3px 3px 15px 3px rgb(10, 10, 10);
+}
+
+.al-capitalize::first-letter{
+    text-transform: capitalize;
+}

@@ -1,0 +1,17 @@
+@import "theme.scss";
+@import "@fortawesome/fontawesome-free/css/all.css";
+
+
+body {
+    background-color: $dark;
+    color: $color-contrast-light;
+}
+
+.al-rounded-border {
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.al-shadow {
+  box-shadow: 3px 3px 15px 3px rgb(10, 10, 10);
+}
